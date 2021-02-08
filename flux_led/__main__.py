@@ -1592,6 +1592,9 @@ def parseArgs():
     mode_group.add_option("", "--coldwhite", dest="cw", default=None,
                   help="Set cold white mode (LEVELCW is percent)",
                   metavar='LEVELCW', type="int")
+    mode_group.add_option("", "--temp", dest="wwcwtemp", default=None,
+                  help="Set mixed warm white and cold white mode (TEMP is between 2700 and 6500 Kelvin, BRIGHTNESS is percent)",
+                  metavar='TEMP BRIGHTNESS', type="int", nargs=2)
     mode_group.add_option("-p", "--preset", dest="preset", default=None,
                   help="Set preset pattern mode (SPEED is percent)",
                   metavar='CODE SPEED', type="int", nargs=2)
@@ -1667,10 +1670,11 @@ def parseArgs():
     if options.color:  mode_count += 1
     if options.ww:     mode_count += 1
     if options.cw:     mode_count += 1
+    if options.wwcwtemp: mode_count += 1
     if options.preset: mode_count += 1
     if options.custom: mode_count += 1
     if mode_count > 1:
-        parser.error("options --color, --*white, --preset, and --custom are mutually exclusive")
+        parser.error("options --color, --*white, --temp --preset, and --custom are mutually exclusive")
 
     if options.on and options.off:
         parser.error("options --on and --off are mutually exclusive")
@@ -1765,6 +1769,10 @@ def main():
         if options.cw is not None:
             print("Setting cold white mode, level: {}%".format(options.cw))
             bulb.setColdWhite(options.cw, not options.volatile)
+
+        if options.wwcwtemp is not None:
+            print("Setting mixed warm white / cold white mode, temperature: {}K, level: {}%".format(options.wwcwtemp[0], options.wwcwtemp[1]))
+            bulb.setWhiteTemperature(options.wwcwtemp[0], utils.percentToByte(options.wwcwtemp[1]), not options.volatile)
 
         if options.color is not None:
             print("Setting color RGB:{}".format(options.color),)
