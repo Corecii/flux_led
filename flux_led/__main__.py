@@ -1774,11 +1774,29 @@ def main():
             else:
                 print("[{}]".format(name))
             if len(options.color) == 3:
-                bulb.setRgb(options.color[0],options.color[1],options.color[2], not options.volatile)
+                bulb.setRgb(
+                    r=options.color[0],
+                    g=options.color[1],
+                    b=options.color[2],
+                    persist=not options.volatile
+                )
             elif len(options.color) == 4:
-                bulb.setRgbw(options.color[0],options.color[1],options.color[2],options.color[3], not options.volatile)
+                bulb.setRgbw(
+                    r=options.color[0],
+                    g=options.color[1],
+                    b=options.color[2],
+                    w=options.color[3],
+                    persist=not options.volatile
+                )
             elif len(options.color) == 5:
-                bulb.setRgbw(options.color[0],options.color[1],options.color[2],options.color[3], not options.volatile, None, options.color[4])
+                bulb.setRgbw(
+                    r=options.color[0],
+                    g=options.color[1],
+                    b=options.color[2],
+                    w=options.color[3],
+                    w2=options.color[4],
+                    persist=not options.volatile
+                )
 
         elif options.custom is not None:
             bulb.setCustomPattern(options.custom[2],
