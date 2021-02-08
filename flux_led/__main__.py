@@ -957,7 +957,7 @@ class WifiLedBulb():
             if self.protocol == "LEDENET":
                 # LEDENET devices support two white outputs for cold and warm. We set
                 # the second one here - if we're only setting a single white value,
-                # we set the second output to be the same as the first
+                # we set the second output to be 0
                 if w2 is not None:
                     msg.append(int(w2))
                 else:
