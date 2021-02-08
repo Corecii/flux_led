@@ -967,10 +967,10 @@ class WifiLedBulb():
             write_mask = 0x00
             # rgbwprotocol devices always overwrite both color & whites
             if not self.rgbwprotocol:
-                if w is None and w2 is None:
+                if w in {None, 0} and w2 in {None, 0}:
                     # Mask out whites
                     write_mask |= 0xf0
-                elif r is None and g is None and b is None:
+                elif r in {None, 0} and g in {None, 0} and b in {None, 0}:
                     # Mask out colors
                     write_mask |= 0x0f
 
